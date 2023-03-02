@@ -20,13 +20,10 @@ class DataProcessor:
     def load_data(self, file, delimiter):
         try:
             if file is not None:
-                if file.type == "application/vnd.ms-excel":
-                    self.data = pd.read_excel(file, engine="openpyxl", header=0)
-                else:
-                    self.data = pd.read_csv(file, header=0, delimiter=delimiter)
+                self.data = pd.read_csv(file, header=0, delimiter=delimiter)
                 st.success("Data berhasil diunggah!")
             else:
-                st.warning("Data gagal dimuat. Silakan upload file CSV atau Excel.")
+                st.warning("Data gagal dimuat. Silakan upload file CSV")
         except Exception as e:
             st.error("Terjadi kesalahan dalam memuat data: {}".format(str(e)))
 
@@ -134,11 +131,18 @@ class DataProcessor:
             # if x_axis is not None and y_axis is not None:
             if pd.api.types.is_numeric_dtype(self.data[x_axis]) and pd.api.types.is_numeric_dtype(self.data[y_axis]):
                 try:
-                    fig, (ax1, ax2, ax3) = plt.subplots(ncols=3, figsize=(12, 6))
-                    sns.scatterplot(x=x_axis, y=y_axis, hue=hue, data=self.data, ax=ax1)
-                    sns.kdeplot(x=self.data[x_axis], hue=self.data[hue], fill=True, alpha=.4, ax=ax2)
-                    sns.kdeplot(x=self.data[y_axis], hue=self.data[hue], fill=True, alpha=.4, ax=ax3)
-                    st.pyplot(fig)
+                    if any(self.data.dtypes == 'object') or any(self.data.dtypes == 'category'):
+                        fig, (ax1, ax2, ax3) = plt.subplots(ncols=3, figsize=(12, 6))
+                        sns.scatterplot(x=x_axis, y=y_axis, hue=hue, data=self.data, ax=ax1)
+                        sns.kdeplot(x=self.data[x_axis], hue=self.data[hue], fill=True, alpha=.4, ax=ax2)
+                        sns.kdeplot(x=self.data[y_axis], hue=self.data[hue], fill=True, alpha=.4, ax=ax3)
+                        st.pyplot(fig)
+                    else:
+                        fig, (ax1, ax2, ax3) = plt.subplots(ncols=3, figsize=(12, 6))
+                        sns.scatterplot(x=x_axis, y=y_axis, data=self.data, ax=ax1)
+                        sns.kdeplot(x=self.data[x_axis], fill=True, alpha=.4, ax=ax2)
+                        sns.kdeplot(x=self.data[y_axis], fill=True, alpha=.4, ax=ax3)
+                        st.pyplot(fig)
                 except:
                     st.warning("Gagal membuat plot. Silakan periksa kembali nama kolom yang dimasukkan.")
             elif pd.api.types.is_categorical_dtype(self.data[x_axis]) or pd.api.types.is_object_dtype(self.data[x_axis]):

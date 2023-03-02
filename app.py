@@ -10,9 +10,11 @@ def main():
     st.markdown('<link rel="stylesheet" href="styles.css">', unsafe_allow_html=True)
 
     data_processor = DataProcessor()
-    
+    # menambahkan header 1
+    st.header('Exploratory Data Analysis Dashboard')
+
     # menambahkan tombol untuk upload file
-    uploaded_file = st.file_uploader("Upload file CSV atau Excel", type=["csv", "xls", "xlsx"])
+    uploaded_file = st.file_uploader("Upload file CSV", type=["csv"])
 
     # menambahkan selectbox untuk memilih delimiter
     delimiter_options = [",", ";", "|", "\t", " "]
