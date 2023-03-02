@@ -74,7 +74,7 @@ def main():
         else:
             st.subheader("Multivariate Analysis")
             data_processor.multivariate_analysis()
-
+            
 
 if __name__ == "__main__":
     main()
