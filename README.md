@@ -1,11 +1,12 @@
-# Exploratory Data Analysis Dashboard
-Project ini merupakan project pembuatan dashboard menggunakan streamlit. Pengguna dapat mengupload file berupa csv atau excel.
-Dari dashboard ini dapat dilakukan beberapa hal diantaranya sebagai berikut:  
-1. Statistika Descriptif
-2. Univariate Analysis
-3. Bivariate Analysis
-4. Multivariate Analysis  
-   
-Pemrosesan data tergantung pada ukuran data yang diupload.
+**Exploratory Data Analysis Dashboard**
 
-Terima kasih!
+This project is a dashboard built using Streamlit. Users can upload data files in CSV or Excel format. The dashboard provides several analytical features, including:
+
+* Descriptive Statistics
+* Univariate Analysis
+* Bivariate Analysis
+* Multivariate Analysis
+
+Data processing performance depends on the size of the uploaded dataset.
+
+Thank you!
